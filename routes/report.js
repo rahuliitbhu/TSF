@@ -76,11 +76,11 @@ router.post('/reports',(req,res)=>{
 })
 
 
-router.get('/reports/reportID',(req,res)=>{
-    const {_id}=req.body
+router.get(`/reports/reportID/${id}`,(req,res)=>{
+    
     
 
-    Report.findById({_id:_id})
+    Report.findById({_id:id})
     .then((report)=>{
         res.json({
             marketID:report.marketID,
