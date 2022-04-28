@@ -4,7 +4,7 @@ const app=express()
 
 const mongoose =require('mongoose')
 const { MONGOURI } = require('./config')
-const PORT = 5000
+const PORT = process.env.PORT || 5000
 require('./schema/reports')
 
 app.use(express.json())
