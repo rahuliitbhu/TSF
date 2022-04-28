@@ -21,7 +21,7 @@ mongoose.connection.on('connected',()=>{
 
 //r8pcftnrqmM9n6rL
 //mongodb+srv://agrilink:<password>@cluster0.1xwh0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-app.get('https://agrilink.herokuapp.com/home',(req,res)=>{
+app.get('/home',(req,res)=>{
     
     res.send("success")
 })
