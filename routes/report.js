@@ -4,7 +4,7 @@ const router = express.Router()
 const mongoose =require('mongoose')
 const Report =mongoose.model("reportDetails")
 
-router.post('/reports',(req,res)=>{
+router.post('https://agrilink.herokuapp.com/reports',(req,res)=>{
     const {userID,marketID,marketName,cmdtyID,cmdtyName,priceUnit,convFctr,price}=req.body
 
 
@@ -76,7 +76,7 @@ router.post('/reports',(req,res)=>{
 })
 
 
-router.get('/reports',(req,res)=>{
+router.get('https://agrilink.herokuapp.com/reports?reportID',(req,res)=>{
     const {_id}=req.body
     
 
