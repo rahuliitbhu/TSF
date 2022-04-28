@@ -76,7 +76,7 @@ router.post('/reports',(req,res)=>{
 })
 
 
-router.get('/reports?reportID',(req,res)=>{
+router.get('/reports/reportID',(req,res)=>{
     const {_id}=req.body
     
 
