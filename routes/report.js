@@ -2,99 +2,71 @@ const express=require('express')
 const router = express.Router()
 
 const mongoose =require('mongoose')
-const Report =mongoose.model("reportDetails")
+//const Report =mongoose.model("reportDetails")
 
-router.post('/reports',(req,res)=>{
-    const {userID,marketID,marketName,cmdtyID,cmdtyName,priceUnit,convFctr,price}=req.body
+const Users=mongoose.model("usersAccount")
+const Transac=mongoose.model("transac")
+router.get('/user',(req,res)=>{
+    Users.find()
+    .then(user=>{
+        res.json({user})
+    })
+})
 
+router.get('/gettransaction',(req,res)=>{
+    Transac.find()
+    .then(transac=>{
+        res.json({transac})
+    })
+})
+router.post('/userDetail',(req,res)=>{
+    const {name,email,balance}=req.body
 
-    Report.findOne({marketID:marketID,cmdtyID:cmdtyID})
-    .then((savedReport)=>{
-
+    const user = new Users({
         
-        if(savedReport)
-        {
-            var sum=price/convFctr
-            
-            savedReport.priceArray.map((item)=>{
-                sum+=item
-            })
-         
-            sum=sum/(savedReport.priceArray.length+1)
+       name,
+       email,
+       balance
+    })
 
-          
-        Report.findByIdAndUpdate(savedReport._id,{
-            
-            $push:{users:userID},
-            price:sum
-            
-        },{
-            new:true
-        })
-        .then(report=>{
-            Report.findByIdAndUpdate(savedReport._id,{
-            
-                $push:{priceArray:(price/convFctr)},
-                price:sum
-                
-            },{
-                new:true
-            })
-            .then(report=>{
-            res.json({status:"success",reportID:report._id})})
+user.save()
 
+.then(user=>{
+    res.json({status:"success",reportID:user._id})
+})
+
+
+
+
+
+})
+
+
+router.post('/transaction',(req,res)=>{
+    const {senderemail,reciveremail,amount}=req.body
   
-    })
-        }
-
-    else
-    {
-        const report = new Report({
-        
-            
-            marketID,
-            marketName,
-            cmdtyID,
-            cmdtyName,
-            $push:{priceArray:(price/convFctr)},
-            $push:{users:userID},
-            
-            priceUnit:"Kg",
-            
-            price:(price/convFctr)
-        })
-
-    report.save()
-    
-    .then(report=>{
-        res.json({status:"success",reportID:report._id})
+    const transaction = new Transac({
+        senderemail,
+        reciveremail,
+       
+       amount
     })
 
-    }
-    })
- 
+transaction.save()
+
+.then(user=>{
+    res.json({status:"success",reportID:user._id})
 })
 
 
-router.get('/reports/report',(req,res)=>{
-    const {_id}=req.body
-    
 
-    Report.findById({_id:_id})
-    .then((report)=>{
-        res.json({
-            marketID:report.marketID,
-            marketName:report.marketName,
-            cmdtyID:report.cmdtyID,
-            cmdtyName:report.cmdtyID,
-            users:report.users,
-            priceUnit:report.priceUnit,
-            
-            price:report.price
-        })
-    })
-    
+
+
 })
+
+
+
+
 
 module.exports=router
 

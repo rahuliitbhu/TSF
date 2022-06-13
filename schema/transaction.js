@@ -3,15 +3,15 @@ const mongoose =require('mongoose')
 
 const reportSchema=mongoose.Schema({
  
-    name:{
+    senderemail:{
         type:String,
         required:true
     },
-    email:{
+    reciveremail:{
         type:String,
         required:true
     },
-    balance:{
+    amount:{
         type:Number,
         required:true
     }
@@ -19,4 +19,4 @@ const reportSchema=mongoose.Schema({
 })
 
 
-mongoose.model('usersAccount',reportSchema)
+mongoose.model('transac',reportSchema)
